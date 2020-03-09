@@ -35,3 +35,8 @@
 ## [1.1.0]
 - You can save directly into databases for '192.168.99.100/api/get'.
 - `app.py` updated.
+
+## [1.1.1]
+- You can save directly into databases for '192.168.99.100/api/post'.
+- `app.py` updated.
+- Readability in code improved.

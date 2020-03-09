@@ -18,6 +18,7 @@ r_server = redis.Redis("192.168.99.100")
 #settings
 app.secret_key = 'mysecretkey'
 
+#Principal route for human client
 @app.route('/')
 def index():
     cur=mysql.connection.cursor()
@@ -28,6 +29,7 @@ def index():
     date,temperature = adapjtodata(y)
     return render_template('index.html', data=data, date=date,temperature=temperature)
 
+#route for save data into db with a post method trhough html view
 @app.route('/microserv/<string:temperature>', methods=['POST'])
 def add_microserv(temperature):
     if request.method == 'POST':
@@ -41,6 +43,7 @@ def add_microserv(temperature):
         
         return redirect(url_for('index'))
 
+#route for delete a data from database, through url you can pass id to delete
 @app.route('/delete/<string:id>')
 def delete(id):
     cur= mysql.connection.cursor()
@@ -49,12 +52,14 @@ def delete(id):
     flash('Data with id {0}'.format(id)+' Removed Successfully')
     return redirect(url_for('index'))
 
+# /index for show design pattern used
 @app.route('/index')
 def home():
     return render_template('home.html')
 
-@app.route('/api/get')
-def getiot():
+# /api/post for save directly into databases, no human client
+@app.route('/api/post')
+def postiot():
     date = gettime()
     temperature = gettemp()
     cur = mysql.connection.cursor()
@@ -65,22 +70,27 @@ def getiot():
         flash('Data Added Successfully from IOT directly')
     return redirect(url_for('index'))
 
+
+#Get datetime
 def gettime():
     colombia = timezone('America/Bogota')
     c_time = datetime.now(colombia)
-    return (c_time.strftime('%D %T'))
+    return (c_time.strftime("%Y-%m-%d %T"))
 
+#Get Cartagena's temperature from Api
 def gettemp():
     with urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?id=3687238&appid=ccd94a61a3605281b41a9e213664685a") as url:
         data = json.loads(url.read().decode())
         return(data["main"]["temp"]-273.15)
 
+#Save timedate and temperature inside a Json
 def iotjson():
     d = gettime()
     t = gettemp()
     y =  ('{ "timestamp":"%s", "temperature":"%s"}') % (d,t)
     return json.loads(y)
 
+#Adapter for extract data from Json
 def adapjtodata(y):
     date= y["timestamp"]
     tempe= y["temperature"]
