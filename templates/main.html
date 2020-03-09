@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservice App</title>
+    <!-- Import Miligram lib from CDN -->
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+        <link rel="stylesheet" href="{{ url_for ('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    {% block content %}{% endblock %} 
+</body>
+<!-- Footer -->
+<section class="container">
+    <blockquote>
+        <p><em>Do you like this? Get the code at <a href="https://github.com/jesucluna/microservice.git">Github</a></em>
+        </p>
+    </blockquote>
+</section>
+
+</html>
