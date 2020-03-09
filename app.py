@@ -29,7 +29,7 @@ def index():
     date,temperature = adapjtodata(y)
     return render_template('index.html', data=data, date=date,temperature=temperature)
 
-#route for save data into db with a post method trhough html view
+#route for save data into db with a post method trhough html view and api's value of temperature
 @app.route('/microserv/<string:temperature>', methods=['POST'])
 def add_microserv(temperature):
     if request.method == 'POST':
@@ -43,6 +43,21 @@ def add_microserv(temperature):
         
         return redirect(url_for('index'))
 
+#route for save data into db with a post method trough html view and human client
+@app.route('/microserv', methods=['POST'])
+def add_micro():
+    if request.method == 'POST':
+        timestamp = request.form['timestamp']
+        temperature = request.form['temperature']
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO microservice (timestamp, temperature) VALUES (%s,%s)',(timestamp,temperature))
+        mysql.connection.commit()
+        cur.close()
+        r1= r_server.set("timestamp",timestamp)
+        r2= r_server.set("temperature",temperature)
+        if r1 and r2:
+          flash('Data Added Successfully')
+        return redirect(url_for('index'))
 #route for delete a data from database, through url you can pass id to delete
 @app.route('/delete/<string:id>')
 def delete(id):

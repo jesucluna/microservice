@@ -17,6 +17,16 @@
                 <input type="submit" value='Save'>
             </fieldset>
         </form>
+        <form action="/microserv" method="POST">
+            <fieldset>
+                <label for="time">TimeStamp</label>
+                <input type="text" name="timestamp" id="time" placeholder="Ex. 2020/03/31" required autofocus>
+                <label for="temp">Temperature</label>
+                <input type="text" name="temperature" id="temp" placeholder="Ex. 32.2" required autofocus>
+                <input type="submit" value="Save">
+            </fieldset>
+
+        </form>
     </div>
 
     {% with messages = get_flashed_messages()%}
@@ -42,7 +52,7 @@
                 <td>{{i.1}}</td>
                 <td>{{i.2}}</td>
                 <td>
-                    <a href="/delete\{{i.0}}">Delete</a>
+                    <a href="/delete\{{i.0}}">Delete from MySQL</a>
                 </td>
             </tr>
             {%endfor%}
@@ -54,4 +64,10 @@
     </blockquote>
     {% endif %}
 </div>
+<section class="container">
+    <blockquote>
+        <p><em>Do you want to know what design pattern I use? Get it at <a href="/index">Design Pattern</a></em>
+        </p>
+    </blockquote>
+</section>
 {% endblock %}
