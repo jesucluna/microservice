@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for,jsonify
 from flask_mysqldb import MySQL
 import redis
 from pytz import timezone
@@ -85,6 +85,17 @@ def postiot():
         flash('Data Added Successfully from IOT directly')
     return redirect(url_for('index'))
 
+# /api/get for get json from database, no human client
+@app.route('/api/get')
+def getiot():
+    cur=mysql.connection.cursor()
+    cur.execute('CREATE TABLE IF NOT EXISTS `microservice` (`ID` INT NOT NULL AUTO_INCREMENT, `timestamp` TIMESTAMP NOT NULL,`temperature` FLOAT NOT NULL ,PRIMARY KEY (`id`))')
+    cur.execute('SELECT * FROM microservice')
+    data=cur.fetchall()
+    if data:
+        return jsonify(data)
+    else:
+        return jsonify(error='Database is empty... Please fill it')
 
 #Get datetime
 def gettime():

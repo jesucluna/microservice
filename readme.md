@@ -52,3 +52,8 @@
 - `index.html` updated
 - `home.html` updated
 - `main.html` updated
+
+## [1.2.1]
+- You can get data inside json directly from databases for '/api/get'.
+- `app.py` updated
+
