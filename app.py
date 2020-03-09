@@ -28,7 +28,6 @@ def index():
     date,temperature = adapjtodata(y)
     return render_template('index.html', data=data, date=date,temperature=temperature)
 
-
 @app.route('/microserv/<string:temperature>', methods=['POST'])
 def add_microserv(temperature):
     if request.method == 'POST':
@@ -42,7 +41,6 @@ def add_microserv(temperature):
         
         return redirect(url_for('index'))
 
-
 @app.route('/delete/<string:id>')
 def delete(id):
     cur= mysql.connection.cursor()
@@ -51,7 +49,22 @@ def delete(id):
     flash('Data with id {0}'.format(id)+' Removed Successfully')
     return redirect(url_for('index'))
 
- 
+@app.route('/index')
+def home():
+    return render_template('home.html')
+
+@app.route('/api/get')
+def getiot():
+    date = gettime()
+    temperature = gettemp()
+    cur = mysql.connection.cursor()
+    cur.execute('INSERT INTO microservice (timestamp, temperature) VALUES (%s,%s)',(date,temperature))
+    mysql.connection.commit()
+    cur.close()
+    if r_server.set("timestamp",date):
+        flash('Data Added Successfully from IOT directly')
+    return redirect(url_for('index'))
+
 def gettime():
     colombia = timezone('America/Bogota')
     c_time = datetime.now(colombia)

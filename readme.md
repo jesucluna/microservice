@@ -31,3 +31,7 @@
 - Initial `Dockerfile`.
 - `docker-compose.yml` for make container web; redis and mysql database.
 - You can save into databases, timestamp and temperature, current values from Cartagena Colombia.
+
+## [1.1.0]
+- You can save directly into databases for '192.168.99.100/api/get'.
+- `app.py` updated.
