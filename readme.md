@@ -40,3 +40,7 @@
 - You can save directly into databases for '192.168.99.100/api/post'.
 - `app.py` updated.
 - Readability in code improved.
+
+## [1.1.2]
+- `docker-compose.yml` updated for connect to db
+- `app.py` updated.

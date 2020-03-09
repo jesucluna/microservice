@@ -8,12 +8,12 @@ import urllib.request, json
 app = Flask(__name__)
 
 #Mysql and Redis connection 
-app.config['MYSQL_HOST']='192.168.99.100'
+app.config['MYSQL_HOST']='db'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='root'
 app.config['MYSQL_DB']='microservice'
 mysql = MySQL(app)
-r_server = redis.Redis("192.168.99.100")
+r_server = redis.Redis("redis")
 
 #settings
 app.secret_key = 'mysecretkey'
