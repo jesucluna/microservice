@@ -44,3 +44,6 @@
 ## [1.1.2]
 - `docker-compose.yml` updated for connect to db
 - `app.py` updated.
+
+## [1.1.3]
+- `docker-compose.yml` updated for connect to mysqldb to port 80
